@@ -123,6 +123,8 @@ if (container) {
 
 
 
+        // smooth scroll
+
         const locoScroll=()=>{
   gsap.registerPlugin(ScrollTrigger)
 
@@ -175,4 +177,40 @@ gsap.to(".hero-obj", {
     scrub: true,          
     markers: false,       
   }
+});
+
+
+        // marquee
+document.addEventListener("DOMContentLoaded", function () {
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", function () {
+    const currentScrollY = window.scrollY;
+    const scrollDown = currentScrollY > lastScrollY;
+    lastScrollY = currentScrollY;
+
+    // Loop through each marquee container
+    const marqueeSections = document.querySelectorAll(".marquee-cont");
+
+    marqueeSections.forEach(section => {
+      const marquees = section.querySelectorAll(".marquee__inner");
+      if (marquees.length < 2) return;
+
+      const [first, second] = marquees;
+
+      if (scrollDown) {
+        first.classList.add("marquee__inner2");
+        first.classList.remove("marquee__inner1");
+
+        second.classList.add("marquee__inner1");
+        second.classList.remove("marquee__inner2");
+      } else {
+        first.classList.add("marquee__inner1");
+        first.classList.remove("marquee__inner2");
+
+        second.classList.add("marquee__inner2");
+        second.classList.remove("marquee__inner1");
+      }
+    });
+  });
 });
