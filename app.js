@@ -29,27 +29,6 @@ window.addEventListener('load', function () {
             preloader.remove();
         }
 
-        // --- All scripts start AFTER preloader is removed ---
-
-       
-        // 2. Copy address button
-        const copyBtn = document.querySelector('.copy-btn');
-        const copyText = document.querySelector('.hero-copy p');
-
-        if (copyBtn && copyText) {
-            copyBtn.addEventListener('click', () => {
-                const textToCopy = copyText.textContent;
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    const originalText = copyBtn.textContent;
-                    copyBtn.textContent = "Copied!";
-                    setTimeout(() => {
-                        copyBtn.textContent = originalText;
-                    }, 1000);
-                }).catch(err => {
-                    console.error("Failed to copy: ", err);
-                });
-            });
-        }
 
        const container = document.getElementById("mouse-parallax-container");
 
@@ -88,7 +67,29 @@ if (container) {
     animate(); // Start animation loop
 }
 
+// copy text
+ const copyButtons = document.querySelectorAll('.copy-btn');
 
+    copyButtons.forEach(copyBtn => {
+        copyBtn.addEventListener('click', () => {
+            // Get the closest .copy-text container
+            const copyContainer = copyBtn.closest('.copy-text');
+            const copyText = copyContainer ? copyContainer.querySelector('p') : null;
+
+            if (copyText) {
+                const textToCopy = copyText.textContent.trim();
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = "Copied!";
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 1000);
+                }).catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+            }
+        });
+    });
 
 
 
@@ -120,6 +121,7 @@ if (container) {
 
         updateOverlayPosition();
         setInterval(updateOverlayPosition, 100);
+
 
 
 

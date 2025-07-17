@@ -243,14 +243,14 @@ body::-webkit-scrollbar{
     padding:20px;
 
 }
-.hero-content{
+.hero-content,.mission-copy{
     display: flex;
     flex-direction: column;
     max-width: 100%;
      /* margin-top: 4rem */
      margin-top: 1rem;
 }
-.hero-content h3{
+.hero-content h3,.mission-copy h3{
     
      font-size: .875rem;
     line-height: 1.25rem;
@@ -424,6 +424,108 @@ background-color: rgb(153 27 27);
     transform: translateX(0%);
   }
 }
+/* MISSION */
+.mission-sect{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+.mission{
+   
+    flex:  1 1 0%;
+    padding-inline: 1.5rem;
+    padding-block: 2.5rem;
+
+}
+.mission-content{
+   
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-block: 2rem;
+}
+.mission-label{
+     font-size: 1.125rem;
+    line-height: 1.75rem;
+     font-weight: 700;
+     font-family:monospace;
+     opacity:0.6;
+}
+.mission-label span{
+      color: rgba(220,38,38,1);
+}
+.mission-h{
+   font-size: 3.75rem;
+    line-height: 1;
+    font-weight: 700;
+    padding-bottom: 1.5rem;
+}
+.mission-h span{
+       color: rgba(185, 28, 28);
+}
+.mission-p{
+     font-size: .875rem;
+    line-height: 1.25rem;
+     padding-bottom: 3.5rem;
+     opacity:0.65;
+     font-family:monospace;
+
+}
+.mission-copy{
+    margin-top: 0;
+}
+.miss-img{
+    flex: 1 1 0%;
+    position: relative;
+    min-height: 100px;
+    overflow: hidden;
+}
+.miss-img img{
+    object-fit: cover;
+    width: 100%;
+    max-height: 600px;
+    min-height: 200px;
+}
+.miss-img .grad-1{
+    z-index:2;
+    height:20%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  background: linear-gradient(to top, #0F0F0F, transparent);
+
+    
+}
+.miss-img .grad-2{
+   
+    z-index:2;
+    height:20%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  background: linear-gradient(to bottom, #0F0F0F, transparent);
+
+    
+}
+.miss-img .grad-3{
+    z-index:2;
+    height:20%;
+    position: absolute;
+    height: 0;
+    left: 0;
+    width: 15%;
+  background: linear-gradient(to right, #0F0F0F, transparent);
+
+    
+}
+@media (max-width: 768px) {
+    .disable-parallax-mobile {
+        transform:translate(0)!important
+    }
+}
 @media screen  and (min-width:768px){
     .hero-copy p{
           font-size: .875rem;
@@ -446,5 +548,29 @@ background-color: rgb(153 27 27);
 .scroller{
     font-size: 3rem;
      line-height: 3.5rem;
+}
+}
+@media screen  and (min-width:1024px){
+.mission-sect{
+    flex-direction: row;
+    height: auto;
+    min-height: 700px;
+}
+.mission{
+    padding: 5rem 2rem;
+}
+.mission-content{
+    padding-inline: 3.5rem;
+}
+.miss-img{
+ min-height: 0;
+}
+.miss-img img{
+    max-height: none;
+    height: 100%;
+    min-height: 0;
+}
+.miss-img .grad-3{
+    height: 100%;
 }
 }
