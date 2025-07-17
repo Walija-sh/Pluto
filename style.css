@@ -22,6 +22,14 @@ html , body{
     height: 100%;
     width: 100%;
 }
+:root{
+    --dark-blue:#000814;
+    --blue:#001d3d;
+    --blue-light:#003566;
+    --yellow:#faa307;
+    --dark-yellow:#FB8500;
+
+}
 html{
     scroll-behavior: smooth;
 }
@@ -29,7 +37,7 @@ body{
     font-family: chairdrobe, "chairdrobe Fallback", sans-serif;
     font-size: 2.5rem;
     overflow-x: hidden;
-    background: rgb(15, 15, 15);
+    background: var(--dark-blue);
     color: #ffeeee;
 }
 
@@ -74,7 +82,7 @@ button:focus{
     width:100vw;
     height:100vh;
     min-height:100vh;
-    background:linear-gradient(to bottom, #181818 0%, #0F0F0F 80%);
+    background:linear-gradient(to bottom, var(--dark-blue) 0%,var(--blue) 80%);
     position:fixed;
     top:0;
     left:0;
@@ -86,10 +94,10 @@ button:focus{
 }
 @keyframes subtle-glow {
   0% {
-    filter: drop-shadow(0 0 4px rgba(220, 38, 38, 0.3));
+    filter: drop-shadow(0 0 4px rgba(251, 134, 0, 0.3));
   }
   100% {
-    filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.6));
+    filter: drop-shadow(0 0 14px rgba(251, 134, 0, 0.6));
   }
 }
 
@@ -154,7 +162,11 @@ padding: 16px;
     -moz-user-select: none;
     user-select: none;
     color: transparent;
-filter: brightness(0) saturate(100%) invert(16%) sepia(99%) saturate(7496%) hue-rotate(357deg) brightness(97%) contrast(119%) drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
+ filter:
+        brightness(0) saturate(100%) 
+        invert(64%) sepia(96%) saturate(744%) 
+        hue-rotate(-14deg) brightness(102%) contrast(110%) 
+        drop-shadow(0 0 8px rgba(251, 134, 0, 0.6));
 
 
 
@@ -237,7 +249,11 @@ body::-webkit-scrollbar{
     -moz-user-select: none;
     user-select: none;
     color:transparent;
-    filter:brightness(0) saturate(80%) invert(16%) sepia(99%) saturate(5000%) hue-rotate(357deg) brightness(70%) contrast(119%) drop-shadow(0 0 14px rgba(220, 38, 38, .6));
+  filter:
+        brightness(0) saturate(100%) 
+        invert(64%) sepia(96%) saturate(744%) 
+        hue-rotate(-14deg) brightness(102%) contrast(110%) 
+        drop-shadow(0 0 8px rgba(251, 134, 0, 0.6));
     top:0;
     left:0;
     padding:20px;
@@ -256,7 +272,7 @@ body::-webkit-scrollbar{
     line-height: 1.25rem;
     font-weight: 700;
     background: black;
-    border: 2px solid rgb(185 28 28);
+    border: 2px solid var(--yellow);
     border-bottom-width: 0;
      padding-left: .5rem;
     padding-right: .5rem;
@@ -270,8 +286,8 @@ body::-webkit-scrollbar{
     grid-template-columns: 1fr 120px;
     align-items: center;
     max-width: 100%;
-   border: 2px solid rgb(185 28 28);
-   background:linear-gradient(to right, #000000, #000000);
+   border: 2px solid var(--yellow);
+   background:linear-gradient(to right, var(--dark-blue), var(--dark-blue));
 }
 .hero-copy p{
      min-width: 0; 
@@ -290,7 +306,7 @@ body::-webkit-scrollbar{
 }
 .copy-btn,.buy-btn{
     
-    background: rgb(185 28 28);
+    background: var(--yellow);
     color: white;
     cursor: pointer;
     font-weight: 400;
@@ -304,7 +320,7 @@ body::-webkit-scrollbar{
 
 }
 .copy-btn:hover,.buy-btn:hover{
-background-color: rgb(153 27 27);
+background-color: var(--dark-yellow);
 }
 .buy-btn{
     max-width: fit-content;
@@ -313,7 +329,7 @@ background-color: rgb(153 27 27);
 }
 .hero-bg{
     z-index:1;
-    background-image:url('./assets/notext.png');
+    /* background-image:url('./assets/notext.png'); */
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
@@ -341,7 +357,7 @@ background-color: rgb(153 27 27);
     width: 100%;
     z-index:2;
     height:20%;
-       background: linear-gradient(to top, #0F0F0F 0%, transparent 100%);
+       background: linear-gradient(to top, var(--dark-blue) 0%, transparent 100%);
 
 }
 .hero-content > p{
@@ -402,8 +418,8 @@ background-color: rgb(153 27 27);
     line-height: 2.2rem;
     letter-spacing: -.02em;
     filter: drop-shadow(0 1px 1px rgba(0,0,0,.1));
-    color: rgba(255,38,38,.7);
-    text-shadow: 0 0 16px rgba(255,38,38,.5);
+    color: rgba(251, 134, 0, 0.7);
+    text-shadow: 0 0 16px rgba(251, 134, 0, 0.5);
    
 }
 
@@ -453,7 +469,7 @@ background-color: rgb(153 27 27);
      opacity:0.6;
 }
 .mission-label span{
-      color: rgba(220,38,38,1);
+      color: var(--dark-yellow);
 }
 .mission-h{
    font-size: 3.75rem;
@@ -462,7 +478,7 @@ background-color: rgb(153 27 27);
     padding-bottom: 1.5rem;
 }
 .mission-h span{
-       color: rgba(185, 28, 28);
+       color: var(--yellow);
 }
 .mission-p{
      font-size: .875rem;
@@ -494,7 +510,7 @@ background-color: rgb(153 27 27);
     bottom: 0;
     left: 0;
     width: 100%;
-  background: linear-gradient(to top, #0F0F0F, transparent);
+  background: linear-gradient(to top, var(--dark-blue), transparent);
 
     
 }
@@ -506,7 +522,7 @@ background-color: rgb(153 27 27);
     top: 0;
     left: 0;
     width: 100%;
-  background: linear-gradient(to bottom, #0F0F0F, transparent);
+  background: linear-gradient(to bottom, var(--dark-blue), transparent);
 
     
 }
@@ -517,7 +533,7 @@ background-color: rgb(153 27 27);
     height: 0;
     left: 0;
     width: 15%;
-  background: linear-gradient(to right, #0F0F0F, transparent);
+  background: linear-gradient(to right, var(--dark-blue), transparent);
 
     
 }
