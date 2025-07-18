@@ -168,18 +168,6 @@ if (container) {
 locoScroll()
 // end of loco setup
 
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.to(".hero-obj", {
-  x: "70vw", 
-  scrollTrigger: {
-    trigger: ".hero-cont",
-    start: "top top",  
-    end: "center",    
-    scrub: true,          
-    markers: false,       
-  }
-});
 
 
         // marquee
@@ -216,3 +204,92 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+gsap.registerPlugin(ScrollTrigger);
+
+function initHeroScrollAnimation() {
+  
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+  if (window.innerWidth > 768) {
+    gsap.to(".hero-obj", {
+      x: "70vw",
+      scrollTrigger: {
+        trigger: ".hero-cont",
+        start: "top top",
+        end: "center",
+        scrub: 1.5,
+        onLeaveBack: self => {
+          gsap.to(".hero-obj", { x: "0vw", duration: 0.4, ease: "power1.out" });
+        },
+        onUpdate: self => {
+          if (!self.isActive && self.progress === 0) {
+            gsap.set(".hero-obj", { x: "0vw" });
+          }
+        }
+      }
+    });
+
+   
+    gsap.to(".hero > div", {
+      y: "-100px",
+      scrollTrigger: {
+        trigger: ".hero-cont",
+        start: "top top",
+        end: "center",
+        scrub: 1.5,
+        onLeaveBack: self => {
+          gsap.to(".hero > div", { y: "0px", duration: 0.4, ease: "power1.out" });
+        },
+        onUpdate: self => {
+          if (!self.isActive && self.progress === 0) {
+            gsap.set(".hero > div", { y: "0px" });
+          }
+        }
+      }
+    });
+    gsap.to(".mission-content", {
+      x: "40px",
+      scrollTrigger: {
+        trigger: ".mission-sect",
+         start: "top 80%",   
+  end: "bottom 40%",      
+  scrub: 1.5, 
+        onLeaveBack: self => {
+          gsap.to(".mission-content", { x: "0px", duration: 0.4, ease: "power1.out" });
+        },
+        onUpdate: self => {
+          if (!self.isActive && self.progress === 0) {
+            gsap.set(".mission-content", { x: "0px" });
+          }
+        }
+      }
+    });
+    gsap.to(".stats-content", {
+      x: "-40px",
+      scrollTrigger: {
+        trigger: ".stats-content",
+         start: "top 80%",   
+  end: "bottom 40%",      
+  scrub: 1.5, 
+        onLeaveBack: self => {
+          gsap.to(".stats-content", { x: "0px", duration: 0.4, ease: "power1.out" });
+        },
+        onUpdate: self => {
+          if (!self.isActive && self.progress === 0) {
+            gsap.set(".stats-content", { x: "0px" });
+          }
+        }
+      }
+    });
+  } else {
+   
+    gsap.set(".hero-obj", { x: "0vw" });
+    gsap.set(".hero > div", { y: "0px" });
+    gsap.set(".mission-content", { x: "0px" });
+    gsap.set(".stats-content", { x: "0px" });
+  }
+}
+
+window.addEventListener("load", initHeroScrollAnimation);
+window.addEventListener("resize", initHeroScrollAnimation);
