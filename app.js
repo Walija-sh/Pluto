@@ -211,7 +211,7 @@ function initHeroScrollAnimation() {
   
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-  if (window.innerWidth > 768) {
+  if (window.innerWidth > 1024) {
     gsap.to(".hero-obj", {
       x: "70vw",
       scrollTrigger: {
@@ -231,19 +231,19 @@ function initHeroScrollAnimation() {
     });
 
    
-    gsap.to(".hero > div", {
-      y: "-100px",
+    gsap.to(".hero-content ", {
+      y: "-50px",
       scrollTrigger: {
         trigger: ".hero-cont",
-        start: "top top",
+        start: "top 30%",
         end: "center",
         scrub: 1.5,
         onLeaveBack: self => {
-          gsap.to(".hero > div", { y: "0px", duration: 0.4, ease: "power1.out" });
+          gsap.to(".hero-content", { y: "0px", duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
           if (!self.isActive && self.progress === 0) {
-            gsap.set(".hero > div", { y: "0px" });
+            gsap.set(".hero-content", { y: "0px" });
           }
         }
       }
@@ -285,7 +285,7 @@ function initHeroScrollAnimation() {
   } else {
    
     gsap.set(".hero-obj", { x: "0vw" });
-    gsap.set(".hero > div", { y: "0px" });
+    gsap.set(".hero-content", { y: "0px" });
     gsap.set(".mission-content", { x: "0px" });
     gsap.set(".stats-content", { x: "0px" });
   }
