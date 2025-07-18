@@ -718,6 +718,7 @@ background-color: var(--dark-yellow);
   justify-self: center;
 }
 
+
 .rm-grad1,
 .rm-grad2 {
   position: absolute;
@@ -745,7 +746,6 @@ background-color: var(--dark-yellow);
    
     object-fit: contain;
     width: 100%;
-    max-height: 750px;
     min-height: 200px;
 }
 /* footer */
@@ -824,6 +824,9 @@ footer p{
 }
  .stats-cards {
     grid-template-columns: 1fr 1fr;
+  }
+  .roadmp-img img{
+     max-height: 750px;
   }
 }
 @media screen  and (min-width:1024px){

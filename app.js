@@ -125,48 +125,7 @@ if (container) {
 
 
 
-        // smooth scroll
 
-        const locoScroll=()=>{
-  gsap.registerPlugin(ScrollTrigger)
-
-  const locoScroll = new LocomotiveScroll({
-    el: document.querySelector('#main'),
-    smooth: true,
-    smartphone: {
-      smooth: true
-    }
-  })
-
-  locoScroll.on('scroll', ScrollTrigger.update)
-
-
-  ScrollTrigger.scrollerProxy('#main', {
-    scrollTop(value) {
-      return arguments.length
-        ? locoScroll.scrollTo(value, 0, 0)
-        : locoScroll.scroll.instance.scroll.y
-    }, 
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      }
-    },
-
-    pinType: document.querySelector('#main').style.transform
-      ? 'transform'
-      : 'fixed',
-  })
-
-  ScrollTrigger.addEventListener('refresh', () => locoScroll.update())
-
-  ScrollTrigger.refresh()
-}
-locoScroll()
-// end of loco setup
 
 
 
@@ -205,10 +164,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Scroll and animations
 gsap.registerPlugin(ScrollTrigger);
 
-function initHeroScrollAnimation() {
-  
+function initGSAPScrollAnimations() {
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
   if (window.innerWidth > 1024) {
@@ -216,10 +175,11 @@ function initHeroScrollAnimation() {
       x: "70vw",
       scrollTrigger: {
         trigger: ".hero-cont",
+        scroller: "#main", 
         start: "top top",
         end: "center",
         scrub: 1.5,
-        onLeaveBack: self => {
+        onLeaveBack: () => {
           gsap.to(".hero-obj", { x: "0vw", duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
@@ -230,15 +190,15 @@ function initHeroScrollAnimation() {
       }
     });
 
-   
-    gsap.to(".hero-content ", {
+    gsap.to(".hero-content", {
       y: "-50px",
       scrollTrigger: {
         trigger: ".hero-cont",
+        scroller: "#main",
         start: "top 30%",
         end: "center",
         scrub: 1.5,
-        onLeaveBack: self => {
+        onLeaveBack: () => {
           gsap.to(".hero-content", { y: "0px", duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
@@ -248,14 +208,16 @@ function initHeroScrollAnimation() {
         }
       }
     });
+
     gsap.to(".mission-content", {
       x: "40px",
       scrollTrigger: {
         trigger: ".mission-sect",
-         start: "top 80%",   
-  end: "bottom 40%",      
-  scrub: 1.5, 
-        onLeaveBack: self => {
+        scroller: "#main",
+        start: "top 80%",
+        end: "bottom 40%",
+        scrub: 1.5,
+        onLeaveBack: () => {
           gsap.to(".mission-content", { x: "0px", duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
@@ -265,14 +227,16 @@ function initHeroScrollAnimation() {
         }
       }
     });
+
     gsap.to(".stats-content", {
       x: "-40px",
       scrollTrigger: {
-        trigger: ".stats-content",
-         start: "top 80%",   
-  end: "bottom 40%",      
-  scrub: 1.5, 
-        onLeaveBack: self => {
+        trigger: ".stats-sect",
+        scroller: "#main",
+         start: "top 80%",
+        end: "bottom 40%",
+        scrub: 1.5,
+        onLeaveBack: () => {
           gsap.to(".stats-content", { x: "0px", duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
@@ -283,7 +247,6 @@ function initHeroScrollAnimation() {
       }
     });
   } else {
-   
     gsap.set(".hero-obj", { x: "0vw" });
     gsap.set(".hero-content", { y: "0px" });
     gsap.set(".mission-content", { x: "0px" });
@@ -291,5 +254,53 @@ function initHeroScrollAnimation() {
   }
 }
 
-window.addEventListener("load", initHeroScrollAnimation);
-window.addEventListener("resize", initHeroScrollAnimation);
+function initLocoAndGSAP() {
+  const scrollContainer = document.querySelector("#main");
+
+  const locoScroll = new LocomotiveScroll({
+    el: scrollContainer,
+    smooth: true,
+    smartphone: {
+      smooth: true
+    }
+  });
+
+  locoScroll.on("scroll", ScrollTrigger.update);
+
+  ScrollTrigger.scrollerProxy(scrollContainer, {
+    scrollTop(value) {
+      return arguments.length
+        ? locoScroll.scrollTo(value, 0, 0)
+        : locoScroll.scroll.instance.scroll.y;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+    },
+    pinType: scrollContainer.style.transform ? "transform" : "fixed"
+  });
+
+  ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+  setTimeout(() => {
+    initGSAPScrollAnimations();
+    ScrollTrigger.refresh();
+  }, 100); 
+}
+
+window.addEventListener("resize", () => {
+  initGSAPScrollAnimations();
+  ScrollTrigger.refresh();
+});
+
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  initLocoAndGSAP();
+});
+
