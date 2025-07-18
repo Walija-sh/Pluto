@@ -199,6 +199,7 @@ padding: 16px;
 main{
     min-height: 100vh;
     scrollbar-width:none;
+    overflow-x: hidden;
 }
 body::-webkit-scrollbar{
     display: none;
