@@ -173,6 +173,7 @@ function initGSAPScrollAnimations() {
   if (window.innerWidth > 1024) {
     gsap.to(".hero-obj", {
       x: "70vw",
+      y:'30vh',
       scrollTrigger: {
         trigger: ".hero-cont",
         scroller: "#main", 
@@ -180,11 +181,11 @@ function initGSAPScrollAnimations() {
         end: "center",
         scrub: 1.5,
         onLeaveBack: () => {
-          gsap.to(".hero-obj", { x: "0vw", duration: 0.4, ease: "power1.out" });
+          gsap.to(".hero-obj", { x: "0vw",y:'0vh', duration: 0.4, ease: "power1.out" });
         },
         onUpdate: self => {
           if (!self.isActive && self.progress === 0) {
-            gsap.set(".hero-obj", { x: "0vw" });
+            gsap.set(".hero-obj", { x: "0vw",y:'0vh' });
           }
         }
       }
@@ -247,7 +248,7 @@ function initGSAPScrollAnimations() {
       }
     });
   } else {
-    gsap.set(".hero-obj", { x: "0vw" });
+    gsap.set(".hero-obj", { x: "0vw",y:'0vh' });
     gsap.set(".hero-content", { y: "0px" });
     gsap.set(".mission-content", { x: "0px" });
     gsap.set(".stats-content", { x: "0px" });
@@ -304,3 +305,84 @@ window.addEventListener("load", () => {
   initLocoAndGSAP();
 });
 
+
+// adding stars
+let starsContainer = null;
+  let styleSheet = null;
+
+  function createStars() {
+    const container = document.querySelector('main');
+    if (!container) return;
+
+    // Remove old stars
+    const oldStars = container.querySelectorAll('.star');
+    oldStars.forEach(star => star.remove());
+
+    // Remove old keyframes
+    if (styleSheet && styleSheet.parentNode) {
+      styleSheet.remove();
+    }
+
+    styleSheet = document.createElement('style');
+    let allKeyframes = '';
+    const colors = ['white', '#fefefe', '#cfcfcf', '#dddddd'];
+    const numStars = 150;
+
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+
+      const sprayX = Math.random() * 100;
+      const sprayY = Math.random() * 100;
+
+      star.style.left = `${sprayX}%`;
+      star.style.top = `${sprayY}%`;
+
+      const randomSize = Math.random() * 2 + 1;
+      const randomShadow = Math.random() * 10;
+      star.style.width = `${randomSize}px`;
+      star.style.height = `${randomSize}px`;
+      star.style.boxShadow = `0 0 ${randomShadow}px white`;
+      star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+      // Direction based on center of screen
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const selfX = sprayX / 100 * window.innerWidth;
+      const selfY = sprayY / 100 * window.innerHeight;
+      const dx = selfX - centerX;
+      const dy = selfY - centerY;
+      const radian = Math.atan2(dy, dx);
+      const distance = 5000;
+      const moveX = Math.cos(radian) * distance;
+      const moveY = Math.sin(radian) * distance;
+
+      const animationName = `movemove${i}`;
+      allKeyframes += `
+        @keyframes ${animationName} {
+          0% { transform: translate(0px, 0px); }
+          100% { transform: translate(${moveX}px, ${moveY}px); }
+        }
+      `;
+
+      const randomTiming = Math.random() * 500 + 200;
+      const twinkleDuration = Math.random() * 3 + 2;
+
+      star.style.animation = `${animationName} ${randomTiming}s ease-in-out infinite, twinkle ${twinkleDuration}s ease-in-out infinite`;
+
+      container.appendChild(star);
+    }
+
+    styleSheet.textContent = allKeyframes;
+    document.head.appendChild(styleSheet);
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      createStars();
+    }, 200);
+  });
+
+  window.addEventListener("resize", () => {
+    createStars();
+  });

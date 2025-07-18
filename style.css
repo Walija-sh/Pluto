@@ -82,7 +82,7 @@ button:focus{
     width:100vw;
     height:100vh;
     min-height:100vh;
-    background:linear-gradient(to bottom, var(--dark-blue) 0%,var(--blue) 80%);
+    background:var(--dark-blue);
     position:fixed;
     top:0;
     left:0;
@@ -161,12 +161,12 @@ padding: 16px;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    color: transparent;
+    /* color: transparent;
  filter:
         brightness(0) saturate(100%) 
         invert(64%) sepia(96%) saturate(744%) 
         hue-rotate(-14deg) brightness(102%) contrast(110%) 
-        drop-shadow(0 0 8px rgba(251, 134, 0, 0.6));
+        drop-shadow(0 0 8px rgba(251, 134, 0, 0.6)); */
 
 
 
@@ -200,9 +200,25 @@ main{
     min-height: 100vh;
     scrollbar-width:none;
     overflow-x: hidden;
+    /* position: relative; */
+    
 }
+
 body::-webkit-scrollbar{
     display: none;
+}
+.star{
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 /* hero */
 .hero-cont{
@@ -237,6 +253,7 @@ body::-webkit-scrollbar{
 }
 .hero-logo{
     /* max-width:500px; */
+    margin-bottom: 1rem;
     max-width: 250px;
     height: auto;
       animation: subtle-glow 3s ease-in-out infinite,rotate-in-out 6s ease-in-out infinite;
@@ -249,7 +266,7 @@ body::-webkit-scrollbar{
      -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    color:transparent;
+    /* color:transparent;
   filter:
         brightness(0) saturate(100%) 
         invert(64%) sepia(96%) saturate(744%) 
@@ -257,7 +274,7 @@ body::-webkit-scrollbar{
         drop-shadow(0 0 8px rgba(251, 134, 0, 0.6));
     top:0;
     left:0;
-    padding:20px;
+    padding:20px; */
 
 }
 .hero-content,.mission-copy{
@@ -344,15 +361,16 @@ background-color: var(--dark-yellow);
 .hero-obj{
         z-index:1;
     transform:translate3d(0,0,0) translate3d(0,0,0);
-    max-width: 25%;
+    max-width: 200px;
     position: absolute;
-    top: 50%;
-    left: 2%;
+    top: 40%;
+    left: 1%;
     transform: translateY(-50%);
     display: none;
+
 }
 .hero-grad{
-    /* class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-banner-bg-darker to-transparent z-2" style="z-index:2;height:20%" */
+   
     position: absolute;
     bottom: 0;
     left: 0;
@@ -543,7 +561,15 @@ background-color: var(--dark-yellow);
   width: 100%;
   display: flex;
   flex-direction: column-reverse;
+  position: relative;
 
+}
+.stat-obj{
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  max-width: 200px;
+  display: none;
 }
 
 .stats-img {
@@ -688,6 +714,13 @@ background-color: var(--dark-yellow);
   padding-block: 1rem;
   position: relative;
 }
+.rm-obj{
+  position: absolute;
+  max-width: 250px;
+  top: 60%;
+  right: 2%;
+  display: none;
+}
 
 .roadmp-container {
   max-width: 1000px;
@@ -829,6 +862,9 @@ footer p{
   .roadmp-img img{
      max-height: 750px;
   }
+  .rm-obj{
+    display: block;
+  }
 }
 @media screen  and (min-width:1024px){
 .mission-sect{
@@ -857,6 +893,9 @@ footer p{
     flex-direction: row;
     height: auto;
     min-height: 700px;
+}
+.stat-obj{
+  display: block;
 }
 .stats-img{
     min-height: 0;
