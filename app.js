@@ -310,72 +310,75 @@ window.addEventListener("load", () => {
 let starsContainer = null;
   let styleSheet = null;
 
-  function createStars() {
-    const container = document.querySelector('main');
-    if (!container) return;
+function createStars() {
+  const container = document.querySelector('main');
+  if (!container) return;
 
-    // Remove old stars
-    const oldStars = container.querySelectorAll('.star');
-    oldStars.forEach(star => star.remove());
+  const oldStars = container.querySelectorAll('.star');
+  oldStars.forEach(star => star.remove());
 
-    // Remove old keyframes
-    if (styleSheet && styleSheet.parentNode) {
-      styleSheet.remove();
-    }
-
-    styleSheet = document.createElement('style');
-    let allKeyframes = '';
-    const colors = ['white', '#fefefe', '#cfcfcf', '#dddddd'];
-    const numStars = 150;
-
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-
-      const sprayX = Math.random() * 100;
-      const sprayY = Math.random() * 100;
-
-      star.style.left = `${sprayX}%`;
-      star.style.top = `${sprayY}%`;
-
-      const randomSize = Math.random() * 2 + 1;
-      const randomShadow = Math.random() * 10;
-      star.style.width = `${randomSize}px`;
-      star.style.height = `${randomSize}px`;
-      star.style.boxShadow = `0 0 ${randomShadow}px white`;
-      star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-
-      // Direction based on center of screen
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const selfX = sprayX / 100 * window.innerWidth;
-      const selfY = sprayY / 100 * window.innerHeight;
-      const dx = selfX - centerX;
-      const dy = selfY - centerY;
-      const radian = Math.atan2(dy, dx);
-      const distance = 5000;
-      const moveX = Math.cos(radian) * distance;
-      const moveY = Math.sin(radian) * distance;
-
-      const animationName = `movemove${i}`;
-      allKeyframes += `
-        @keyframes ${animationName} {
-          0% { transform: translate(0px, 0px); }
-          100% { transform: translate(${moveX}px, ${moveY}px); }
-        }
-      `;
-
-      const randomTiming = Math.random() * 500 + 200;
-      const twinkleDuration = Math.random() * 3 + 2;
-
-      star.style.animation = `${animationName} ${randomTiming}s ease-in-out infinite, twinkle ${twinkleDuration}s ease-in-out infinite`;
-
-      container.appendChild(star);
-    }
-
-    styleSheet.textContent = allKeyframes;
-    document.head.appendChild(styleSheet);
+  if (styleSheet && styleSheet.parentNode) {
+    styleSheet.remove();
   }
+
+  styleSheet = document.createElement('style');
+  let allKeyframes = '';
+  const colors = ['white', '#fefefe', '#cfcfcf', '#dddddd'];
+  const numStars = 150;
+
+  const containerRect = container.getBoundingClientRect();
+  const containerHeight = container.scrollHeight || container.offsetHeight;
+  const containerWidth = container.scrollWidth || container.offsetWidth;
+
+  for (let i = 0; i < numStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+
+    // Random position within full container height
+    const posX = Math.random() * containerWidth;
+    const posY = Math.random() * containerHeight;
+
+    star.style.left = `${posX}px`;
+    star.style.top = `${posY}px`;
+
+    const randomSize = Math.random() * 2 + 1;
+    const randomShadow = Math.random() * 10;
+    star.style.width = `${randomSize}px`;
+    star.style.height = `${randomSize}px`;
+    star.style.boxShadow = `0 0 ${randomShadow}px white`;
+    star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    const centerX = containerWidth / 2;
+    const centerY = containerHeight / 2;
+    const dx = posX - centerX;
+    const dy = posY - centerY;
+    const radian = Math.atan2(dy, dx);
+   const maxDistanceX = container.offsetWidth;
+const maxDistanceY = container.offsetHeight;
+const distance = Math.min(maxDistanceX, maxDistanceY) / 2;
+
+    const moveX = Math.cos(radian) * distance;
+    const moveY = Math.sin(radian) * distance;
+
+    const animationName = `movemove${i}`;
+    allKeyframes += `
+      @keyframes ${animationName} {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(${moveX}px, ${moveY}px); }
+      }
+    `;
+
+    const randomTiming = Math.random() * 500 + 200;
+    const twinkleDuration = Math.random() * 3 + 2;
+    star.style.animation = `${animationName} ${randomTiming}s ease-in-out infinite, twinkle ${twinkleDuration}s ease-in-out infinite`;
+
+    container.appendChild(star);
+  }
+
+  styleSheet.textContent = allKeyframes;
+  document.head.appendChild(styleSheet);
+}
+
 
   window.addEventListener("load", () => {
     setTimeout(() => {

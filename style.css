@@ -199,7 +199,7 @@ padding: 16px;
 main{
     min-height: 100vh;
     scrollbar-width:none;
-    overflow-x: hidden;
+    overflow-x: hidden ;
     /* position: relative; */
     
 }
@@ -213,6 +213,7 @@ body::-webkit-scrollbar{
     height: 5px;
     border-radius: 50%;
     background-color: white;
+    z-index: 1;
 }
 
 
@@ -257,6 +258,7 @@ body::-webkit-scrollbar{
     max-width: 250px;
     height: auto;
       animation: subtle-glow 3s ease-in-out infinite,rotate-in-out 6s ease-in-out infinite;
+      z-index: 10009999;
 }
 .hero-logo img{
    
@@ -710,7 +712,6 @@ background-color: var(--dark-yellow);
 }
 /* ROADMAP */
 .roadmp-section {
-  background-color: var(--dark-blue);
   padding-block: 1rem;
   position: relative;
 }
@@ -788,7 +789,6 @@ background-color: var(--dark-yellow);
   padding: 2.25rem 1.5rem;
   position: relative;
   z-index: 10;
-  background-color: var(--dark-blue);
   color: #6b7280;
   font-size: 14px;
 }
